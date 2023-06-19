@@ -1,0 +1,28 @@
+# Spring Boot的配置文件
+spring:
+    application:
+      name: user-center
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/yupi
+      username: root
+      password: admin123
+    # session 失效时间  设置会话（session）的失效时间为 86400 秒（即 24 小时）。
+    session:
+      timeout: 86400
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+#    设置应用程序的上下文路径为 "/api"，即访问接口时的根路径为 "/api"。
+#   mybatis-plus默认会将驼峰转换成下划线，所以就出现 在“字段列表”中出现未知列“user_account”，在application.yml关闭默认转换
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+#  MyBatis-Plus框架它有一个逻辑删除，默认会帮助我们查询出来没有被删的用户，配置逻辑已删除的值为 1，即当数据被逻辑删除时，该字段的值为 1。
+#  配置逻辑未删除的值为 0，即当数据未被逻辑删除时，该字段的值为 0。
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
